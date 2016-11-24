@@ -9,8 +9,8 @@ class Chauffeur {
     public:
         Chauffeur(){}
         Chauffeur(std::string n) : nom(n) {}
-        virtual ~Chauffeur(){}
-        virtual std::string getNom(){
+        ~Chauffeur(){}
+        std::string getNom() const{
             return nom;
         }
 

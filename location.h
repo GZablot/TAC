@@ -20,7 +20,7 @@ class Location {
     public:
         Location(){}
         Location(Vehicule v, Chauffeur c) : vehicule(v), chauffeur(c){}
-        virtual ~Location(){}
+        ~Location(){}
 };
 
 #endif // LOCATION_H
