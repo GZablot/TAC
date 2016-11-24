@@ -6,23 +6,22 @@
 
 class Chauffeur {
 
+    std::string nom;
+    bool disponible;
+    bool permis_voiture;
+    bool permis_bus;
+    //Date visite_medicale;
+
     public:
         Chauffeur(){}
-        Chauffeur(std::string n) : nom(n) {}
         ~Chauffeur(){}
+
         std::string getNom() const{
-            return nom;
+            return "Jean";
         }
 
-
-    protected:
-        std::string nom;
-        bool disponible;
-        bool permis_voiture;
-        bool permis_bus;
-        //Date visite_medicale;
-
-
-
+        int getPrix() const{
+            return 20;
+        }
 };
 #endif // CHAUFFEUR_H

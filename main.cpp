@@ -1,8 +1,9 @@
 #include "mainwindow.h"
 #include <QApplication>
 #include <QPushButton>
+#include "location.h"
 #include "chauffeur.h"
-#include "voiture.h"
+#include "vehicule.h"
 #include <iostream>
 
 using namespace std;
@@ -15,13 +16,9 @@ int main(int argc, char *argv[])
     MainWindow w;
     w.show();
 
-    Chauffeur c("Jean");
-    std::string nom = c.getNom();
-    cout << nom << endl;
-
-    Voiture v;
-    std::string nomVoiture = v.getNom();
-    cout << nomVoiture << endl;
-
+    Location location;
+    location.setChauffeur();
+    location.setVehicule(2);
+    cout << location.getNom() << location.getPrix() << endl;
     return a.exec();
 }

@@ -16,13 +16,11 @@ SOURCES += main.cpp\
         mainwindow.cpp \
     vehicule.cpp \
     location.cpp \
-    chauffeur.cpp \
-    voiture.cpp
+    chauffeur.cpp
 
 HEADERS  += mainwindow.h \
     vehicule.h \
     location.h \
-    chauffeur.h \
-    voiture.h
+    chauffeur.h
 
 FORMS    += mainwindow.ui

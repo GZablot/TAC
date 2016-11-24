@@ -5,33 +5,57 @@
 #include "chauffeur.h"
 #include "vehicule.h"
 
-class Vehicule;
+#include <iostream>
+#include <iomanip>
+#include <sstream>
 
 class Location {
-    protected:
+
         int identification;
         int duree;
-        int prix;
-        Vehicule vehicule;
-        Chauffeur chauffeur;
+        Vehicule *vehicule;
+        Chauffeur *chauffeur;
         std::string nom;
         std::string rdv_aller;
         std::string rdv_retour;
         std::string type_vehicule;
 
     public:
-        Location(){}
-        Location(Vehicule v, Chauffeur c) : vehicule(v), chauffeur(c){}
+        Location() : chauffeur(NULL), vehicule(NULL){}
 
-        int getNom(){
-            return vehicule.getNom();
+        std::string getNom() const{
+            return vehicule->getNom()+chauffeur->getNom();
         }
 
-        std::string getPrix(){
-            return Chauffeur.get
+        int getPrix() const{
+            return vehicule->getPrix()+chauffeur->getPrix();
         }
 
-        ~Location(){}
+        ~Location(){
+        }
+
+        void setVehicule(int v){
+            switch(v){
+            case 1: vehicule = new Voiture();
+                break;
+            case 2: vehicule = new Bus();
+                break;
+            case 3: vehicule = new Velo();
+            }
+        }
+
+        void setChauffeur(){
+            chauffeur = new Chauffeur();
+        }
+
+        void decrit(std::ostream &os) const{
+            if(chauffeur != NULL){
+                os << "Vous avez loué : " << vehicule->getNom() << "avec un chauffeur du nom de : "
+                   << chauffeur->getNom() << " au prix de : " << this->getPrix();
+            }else{
+                os << "Vous avez loué : " << vehicule->getNom() << " au prix de : " << this->getPrix();
+            }
+        }
 };
 
 #endif // LOCATION_H
