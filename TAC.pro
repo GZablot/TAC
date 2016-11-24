@@ -17,12 +17,18 @@ SOURCES += main.cpp\
     vehicule.cpp \
     location.cpp \
     chauffeur.cpp \
-    voiture.cpp
+    voiture.cpp \
+    velo.cpp \
+    bus.cpp \
+    fenetre.cpp
 
 HEADERS  += mainwindow.h \
     vehicule.h \
     location.h \
     chauffeur.h \
-    voiture.h
+    voiture.h \
+    velo.h \
+    bus.h \
+    fenetre.h
 
 FORMS    += mainwindow.ui

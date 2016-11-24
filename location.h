@@ -11,7 +11,7 @@ class Location {
     protected:
         int identification;
         int duree;
-        Vehicule vehicule;
+        Vehicule* vehicule;
         Chauffeur chauffeur;
         std::string rdv_aller;
         std::string rdv_retour;
@@ -19,8 +19,20 @@ class Location {
 
     public:
         Location(){}
-        Location(Vehicule v, Chauffeur c) : vehicule(v), chauffeur(c){}
+        Location(Vehicule* v, Chauffeur c) : vehicule(v), chauffeur(c){}
         ~Location(){}
+
+        std::string getNom() const{
+            return chauffeur.getNom();
+        }
+
+        int getPrix() const{
+            return vehicule->getPrix();
+        }
+
+        std::string affiche() const {return "Type vehicule loue : " + vehicule->getNom() + " , Prix : " + std::to_string(vehicule->getPrix())
+                    + " Chauffeur : " + chauffeur.getNom() ;}
+
 };
 
 #endif // LOCATION_H

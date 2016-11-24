@@ -1,9 +1,12 @@
 #include "mainwindow.h"
 #include <QApplication>
 #include <QPushButton>
+#include <QRadioButton>
 #include "chauffeur.h"
 #include "voiture.h"
+#include "location.h"
 #include <iostream>
+#include "fenetre.h"
 
 using namespace std;
 
@@ -12,16 +15,23 @@ int main(int argc, char *argv[])
     QApplication a(argc, argv);
 
 
-    MainWindow w;
-    w.show();
+    Fenetre fenetre;
+    fenetre.show();
+
+
+
 
     Chauffeur c("Jean");
-    std::string nom = c.getNom();
-    cout << nom << endl;
+    /*string nom = c.getNom();
+    cout << nom << endl;*/
 
     Voiture v;
-    std::string nomVoiture = v.getNom();
-    cout << nomVoiture << endl;
+    /*std::string nomVoiture = v.getNom();
+    int prix = v.getPrix();
+    cout << nomVoiture << " " << prix  << endl;*/
+
+    Location l(&v, c);
+    cout << l.affiche() << endl;
 
     return a.exec();
 }
