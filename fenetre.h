@@ -32,13 +32,15 @@ class Fenetre : public QWidget
         void voitureSlot();
         void busSlot();
         void veloSlot();
+        void validerSlot();
 
     private:
         QRadioButton *bouton_voiture;
         QRadioButton *bouton_bus;
         QRadioButton *bouton_velo;
+        QPushButton *valider;
         QLabel *prix_texte;
-        Location location;
+        Location* location;
         Vehicule* vehicule;
         Chauffeur chauffeur;
 };

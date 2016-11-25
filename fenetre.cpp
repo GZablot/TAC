@@ -27,6 +27,12 @@ Fenetre::Fenetre() : QWidget()
     bouton_velo->setCursor(Qt::PointingHandCursor);
     bouton_velo->move(190,30);
 
+    /*bouton valider location*/
+    valider = new QPushButton("Valider",this);
+    valider->setToolTip("Louer une voiture");
+    valider->setFont(QFont("Comic Sans MS"));
+    valider->setCursor(Qt::PointingHandCursor);
+    valider->move(160,170);
 
     /* ajout du texte*/
     prix_texte = new QLabel("Prix à payer : 0     ",this);
@@ -42,6 +48,7 @@ Fenetre::Fenetre() : QWidget()
     QObject::connect(bouton_voiture, SIGNAL(clicked()), this, SLOT(voitureSlot()));
     QObject::connect(bouton_bus, SIGNAL(clicked()), this, SLOT(busSlot()));
     QObject::connect(bouton_velo, SIGNAL(clicked()), this, SLOT(veloSlot()));
+    QObject::connect(valider, SIGNAL(clicked()), this, SLOT(validerSlot()));
 
     //QHBoxLayout *layout = new QHBoxLayout();
 
@@ -66,5 +73,12 @@ void Fenetre::busSlot(){
 void Fenetre::veloSlot(){
     vehicule = new Velo();
     prix_texte->setText("Prix à payer : " + QString::fromStdString(std::to_string(this->vehicule->getPrix())));
+}
+
+void Fenetre::validerSlot(){
+    std::cout << "Validation" << std::endl;
+    location = new Location(vehicule);
+    std::cout << location->afficheSansChauffeur() << std::endl;
+
 }
 
