@@ -4,6 +4,7 @@
 #include "location.h"
 #include "chauffeur.h"
 #include "vehicule.h"
+#include "fenetre.h"
 #include <iostream>
 
 using namespace std;
@@ -13,8 +14,8 @@ int main(int argc, char *argv[])
     QApplication a(argc, argv);
 
 
-    MainWindow w;
-    w.show();
+    Fenetre fenetre;
+    fenetre.show();
 
     Location location;
     location.setChauffeur();
