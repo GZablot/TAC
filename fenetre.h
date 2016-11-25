@@ -8,6 +8,7 @@
 #include <QLabel>
 #include <QHBoxLayout>
 #include <string>
+#include <iostream>
 #include "location.h"
 #include "chauffeur.h"
 #include "vehicule.h"
@@ -30,10 +31,12 @@ class Fenetre : public QWidget
         //void changerTexte();
         void voitureSlot();
         void busSlot();
+        void veloSlot();
 
     private:
         QRadioButton *bouton_voiture;
         QRadioButton *bouton_bus;
+        QRadioButton *bouton_velo;
         QLabel *prix_texte;
         Location location;
         Vehicule* vehicule;
