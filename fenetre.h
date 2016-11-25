@@ -25,6 +25,7 @@ class Fenetre : public QWidget
         Fenetre();
         ~Fenetre(){
             delete vehicule;
+            delete location;
         }
 
     public slots:

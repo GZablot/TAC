@@ -21,17 +21,17 @@ int main(int argc, char *argv[])
 
 
 
-    Chauffeur c("Jean");
-    /*string nom = c.getNom();
-    cout << nom << endl;*/
+    /*Chauffeur c("Jean");
+    string nom = c.getNom();
+    cout << nom << endl;
 
     Voiture v;
-    /*std::string nomVoiture = v.getNom();
+    std::string nomVoiture = v.getNom();
     int prix = v.getPrix();
-    cout << nomVoiture << " " << prix  << endl;*/
+    cout << nomVoiture << " " << prix  << endl;
 
     Location l(&v, c);
-    cout << l.afficheAvecChauffeur() << endl;
+    cout << l.afficheAvecChauffeur() << endl;*/
 
     return a.exec();
 }
