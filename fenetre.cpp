@@ -38,7 +38,7 @@ Fenetre::Fenetre() : QWidget(){
 
 }
 /*
-void GUI_Qt::gereBouton(const QString& ti) {
+void Fenetre::gereBouton(const QString& ti) {
   const int type = ti[0].toLatin1() - 'A', ident = ti[1].toLatin1() - '1';
   bool ok = (type >= nbTypeConfirm) || (valeur[type] < 0);
   if (! ok) {
@@ -64,5 +64,5 @@ void GUI_Qt::gereBouton(const QString& ti) {
       }
     }
   }
-}
-*/
+}*/
+

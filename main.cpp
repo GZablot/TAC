@@ -19,7 +19,7 @@ int main(int argc, char *argv[])
 
     Location location;
     location.setChauffeur();
-    location.setVehicule(2);
+    location.setVehicule(Location::bus);
     cout << location.getNom() << location.getPrix() << endl;
     return a.exec();
 }

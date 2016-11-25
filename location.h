@@ -21,6 +21,13 @@ class Location {
         std::string type_vehicule;
 
     public:
+
+        enum IdVehicule{
+            voiture = 1,
+            bus = 2,
+            velo = 3
+        };
+
         Location() : chauffeur(NULL), vehicule(NULL){}
 
         std::string getNom() const{
@@ -34,13 +41,13 @@ class Location {
         ~Location(){
         }
 
-        void setVehicule(int v){
-            switch(v){
-            case 1: vehicule = new Voiture();
+        void setVehicule(const IdVehicule iv){
+            switch((int) iv){
+            case voiture: vehicule = new Voiture();
                 break;
-            case 2: vehicule = new Bus();
+            case bus: vehicule = new Bus();
                 break;
-            case 3: vehicule = new Velo();
+            case velo: vehicule = new Velo();
             }
         }
 

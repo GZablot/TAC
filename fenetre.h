@@ -21,6 +21,7 @@ protected:
     QRadioButton bouton[3];
     QSignalMapper mapper;
     Location location;
+    //static const int nbTypeConfirm = Location::IdVehicule;
 
 private:
     QRadioButton bouton_voiture;
