@@ -31,7 +31,7 @@ int main(int argc, char *argv[])
     cout << nomVoiture << " " << prix  << endl;*/
 
     Location l(&v, c);
-    cout << l.affiche() << endl;
+    cout << l.afficheAvecChauffeur() << endl;
 
     return a.exec();
 }

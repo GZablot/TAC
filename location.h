@@ -19,6 +19,7 @@ class Location {
 
     public:
         Location(){}
+        Location(Vehicule* v): vehicule(v){}
         Location(Vehicule* v, Chauffeur c) : vehicule(v), chauffeur(c){}
         ~Location(){}
 
@@ -30,7 +31,17 @@ class Location {
             return vehicule->getPrix();
         }
 
-        std::string affiche() const {return "Type vehicule loue : " + vehicule->getNom() + " , Prix : " + std::to_string(vehicule->getPrix())
+        void setVehicule(Vehicule* v){
+            this->vehicule = v;
+        }
+
+        void setChauffeur(Chauffeur c){
+            this->chauffeur = c;
+        }
+
+        std::string afficheSansChauffeur() const {return "Type vehicule loue : " + vehicule->getNom() + " , Prix : " + std::to_string(vehicule->getPrix())  ;}
+
+        std::string afficheAvecChauffeur() const {return "Type vehicule loue : " + vehicule->getNom() + " , Prix : " + std::to_string(vehicule->getPrix())
                     + " Chauffeur : " + chauffeur.getNom() ;}
 
 };

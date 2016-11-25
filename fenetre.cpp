@@ -1,4 +1,6 @@
 #include "fenetre.h"
+#include <iostream>
+
 
 Fenetre::Fenetre() : QWidget()
 {
@@ -20,7 +22,7 @@ Fenetre::Fenetre() : QWidget()
 
 
     /* ajout du texte*/
-    prix_texte = new QLabel("Prix à payer : ",this);
+    prix_texte = new QLabel("Prix à payer : 0      ",this);
     //prix_texte->setAlignment(Qt::AlignCenter);
     prix_texte->setFont(QFont("Comic Sans MS"));
 
@@ -28,6 +30,8 @@ Fenetre::Fenetre() : QWidget()
     palette->setColor(QPalette::WindowText,Qt::blue);
     prix_texte->setPalette(*palette);
 
+    QObject::connect(bouton_voiture, SIGNAL(clicked()), this, SLOT(voitureSlot()));
+    QObject::connect(bouton_bus, SIGNAL(clicked()), this, SLOT(busSlot()));
 
     //QHBoxLayout *layout = new QHBoxLayout();
 
@@ -35,4 +39,16 @@ Fenetre::Fenetre() : QWidget()
     //setLayout(layout);
 
 
+}
+
+void Fenetre::voitureSlot(){
+    vehicule = new Voiture();
+    prix_texte->setText("Prix à payer : " + QString::fromStdString(std::to_string(this->vehicule->getPrix()))); //QString::fromStdString(std::to_string(prix))
+    //std::cout << this->vehicule->getPrix() << std::endl;
+}
+
+void Fenetre::busSlot(){
+    vehicule = new Bus();
+    prix_texte->setText("Prix à payer : " + QString::fromStdString(std::to_string(this->vehicule->getPrix())));
+    //std::cout << this->vehicule->getPrix() << std::endl;
 }
