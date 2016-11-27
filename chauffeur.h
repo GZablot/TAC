@@ -14,9 +14,14 @@ class Chauffeur {
             return nom;
         }
 
+        int getPrix() const{
+            return prix;
+        }
+
 
     protected:
         std::string nom;
+        float prix = 20.;
         bool disponible;
         bool permis_voiture;
         bool permis_bus;

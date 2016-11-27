@@ -15,6 +15,8 @@
 #include "voiture.h"
 #include "bus.h"
 #include "velo.h"
+#include <QGroupBox>
+#include <QMessageBox>
 
 
 class Fenetre : public QWidget
@@ -26,6 +28,7 @@ class Fenetre : public QWidget
         ~Fenetre(){
             delete vehicule;
             delete location;
+            delete chauffeur;
         }
 
     public slots:
@@ -34,16 +37,22 @@ class Fenetre : public QWidget
         void busSlot();
         void veloSlot();
         void validerSlot();
+        void chauffeurSlot();
+        void sansChauffeurSlot();
 
     private:
         QRadioButton *bouton_voiture;
         QRadioButton *bouton_bus;
         QRadioButton *bouton_velo;
+        QRadioButton *bouton_chauffeur;
+        QRadioButton *bouton_sans_chauffeur;
+        QGroupBox *groupVehicule;
+        QGroupBox *groupChauffeur;
         QPushButton *valider;
         QLabel *prix_texte;
         Location* location;
         Vehicule* vehicule;
-        Chauffeur chauffeur;
+        Chauffeur* chauffeur;
 };
 
 #endif // FENETRE_H

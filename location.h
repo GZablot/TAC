@@ -11,8 +11,9 @@ class Location {
     protected:
         int identification;
         int duree;
+        int prix;
         Vehicule* vehicule;
-        Chauffeur chauffeur;
+        Chauffeur* chauffeur;
         std::string rdv_aller;
         std::string rdv_retour;
         std::string type_vehicule;
@@ -20,29 +21,33 @@ class Location {
     public:
         Location(){}
         Location(Vehicule* v): vehicule(v){}
-        Location(Vehicule* v, Chauffeur c) : vehicule(v), chauffeur(c){}
+        Location(Vehicule* v, Chauffeur* c) : vehicule(v), chauffeur(c){}
         ~Location(){}
 
         std::string getNom() const{
-            return chauffeur.getNom();
+            return chauffeur->getNom();
         }
 
         int getPrix() const{
-            return vehicule->getPrix();
+            return vehicule->getPrix() + chauffeur->getPrix();
         }
 
         void setVehicule(Vehicule* v){
             this->vehicule = v;
         }
 
-        void setChauffeur(Chauffeur c){
+        void setChauffeur(Chauffeur* c){
             this->chauffeur = c;
+        }
+
+        void setPrix(int prix){
+            this->prix = prix;
         }
 
         std::string afficheSansChauffeur() const {return "Type vehicule loue : " + vehicule->getNom() + " , Prix : " + std::to_string(vehicule->getPrix())  ;}
 
-        std::string afficheAvecChauffeur() const {return "Type vehicule loue : " + vehicule->getNom() + " , Prix : " + std::to_string(vehicule->getPrix())
-                    + " Chauffeur : " + chauffeur.getNom() ;}
+        std::string afficheAvecChauffeur() const {return "Type vehicule loue : " + vehicule->getNom() + " , Prix : " + std::to_string(vehicule->getPrix() + chauffeur->getPrix())
+                    + " , Chauffeur : " + chauffeur->getNom() ;}
 
 };
 
