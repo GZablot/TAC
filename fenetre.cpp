@@ -4,7 +4,7 @@
 
 Fenetre::Fenetre() : QWidget()
 {
-    setFixedSize(600, 300);
+    setFixedSize(600, 380);
 
     /*group box vehicule*/
     groupVehicule = new QGroupBox("Louer un Vehicule",this);
@@ -13,6 +13,13 @@ Fenetre::Fenetre() : QWidget()
     /*group box chauffeur*/
     groupChauffeur = new QGroupBox("Chauffeur",this);
     groupChauffeur->move(40,120);
+    groupChauffeur->setEnabled(true);
+
+
+    /*group box electrique*/
+    groupElectrique = new QGroupBox("Electrique", this);
+    groupElectrique->move(40,250);
+    groupElectrique->setEnabled(false);
 
     /*bouton voiture*/
     bouton_voiture = new QRadioButton("Voiture",groupVehicule) ;
@@ -52,16 +59,33 @@ Fenetre::Fenetre() : QWidget()
     bouton_sans_chauffeur->move(280,30);
     bouton_sans_chauffeur->setChecked(true);
 
+    /*bouton electrique*/
+    bouton_electrique = new QRadioButton("Avec assistance", groupElectrique);
+    bouton_electrique->setToolTip("Velo avec assistance électrique");
+    bouton_electrique->setFont(QFont("Comic Sans MS"));
+    bouton_electrique->setCursor(Qt::PointingHandCursor);
+    bouton_electrique->move(30, 30);
+    bouton_electrique->setChecked(true);
+
+
+    /*bouton sans electrique*/
+    bouton_sans_electrique = new QRadioButton("Sans assistance", groupElectrique);
+    bouton_sans_electrique->setToolTip("Velo avec assistance électrique");
+    bouton_sans_electrique->setFont(QFont("Comic Sans MS"));
+    bouton_sans_electrique->setCursor(Qt::PointingHandCursor);
+    bouton_sans_electrique->move(260, 30);
+
+
 
     /*bouton valider location*/
     valider = new QPushButton("Valider",this);
     valider->setToolTip("Louer une voiture");
     valider->setFont(QFont("Comic Sans MS"));
     valider->setCursor(Qt::PointingHandCursor);
-    valider->move(160,270);
+    valider->move(230,340);
 
     /* ajout du texte*/
-    prix_texte = new QLabel("Prix à payer : 0     ",this);
+    prix_texte = new QLabel("Prix à payer : 0             ",this);
     //prix_texte->setAlignment(Qt::AlignCenter);
     prix_texte->setFont(QFont("Comic Sans MS"));
 
@@ -73,16 +97,15 @@ Fenetre::Fenetre() : QWidget()
     /*creation liste chauffeur*/
     saisie = new QLineEdit(groupChauffeur);
     saisie->setText("Saisir nom chauffeur");
+    saisie->setFont(QFont("Comic Sans MS"));
     saisie->move(60,60);
-
-    QStringList List;
-    List << "Clair de Lune" << "Reverie" << "Prelude";
+    saisie->setEnabled(false);
 
 
 
     /*Par défaut voiture*/
     vehicule = new Voiture();
-    prix_texte->setText("Prix à payer : " + QString::fromStdString(std::to_string(this->vehicule->getPrix())));
+    prix_texte->setText("Prix à payer : " + QString::fromStdString(std::to_string(this->vehicule->getPrix())) + "€");
 
     /*action des QRadioButton*/
     QObject::connect(bouton_voiture, SIGNAL(clicked()), this, SLOT(voitureSlot()));
@@ -91,39 +114,59 @@ Fenetre::Fenetre() : QWidget()
     QObject::connect(valider, SIGNAL(clicked()), this, SLOT(validerSlot()));
     QObject::connect(bouton_chauffeur, SIGNAL(clicked()), this, SLOT(chauffeurSlot()));
     QObject::connect(bouton_sans_chauffeur, SIGNAL(clicked()), this, SLOT(sansChauffeurSlot()));
-
-    //QHBoxLayout *layout = new QHBoxLayout();
-
-    //layout->addWidget(prix_texte);
-    //setLayout(layout);
+    QObject::connect(bouton_electrique, SIGNAL(clicked()), this, SLOT(electriqueSlot()));
+    QObject::connect(bouton_sans_electrique, SIGNAL(clicked()), this, SLOT(sansElectriqueSlot()));
 
 
 }
 
+void Fenetre::electriqueSlot(){
+    vehicule->setElectrique(true);
+    prix_texte->setText("Prix à payer : " + QString::fromStdString(std::to_string(this->vehicule->getPrix())) + "€");
+}
+
+void Fenetre::sansElectriqueSlot(){
+    vehicule->setElectrique(false);
+    prix_texte->setText("Prix à payer : " + QString::fromStdString(std::to_string(this->vehicule->getPrix())) + "€");
+}
+
 void Fenetre::chauffeurSlot(){
-    chauffeur = new Chauffeur(saisie->text().toStdString());
-    prix_texte->setText("Prix à payer : " + QString::fromStdString(std::to_string(this->vehicule->getPrix() + this->chauffeur->getPrix())));
+    if(saisie->text().toStdString() == "Saisir nom chauffeur"){
+        chauffeur = new Chauffeur("Jean");
+    }else{
+        chauffeur = new Chauffeur(saisie->text().toStdString());
+    }
+    saisie->setEnabled(true);
+    prix_texte->setText("Prix à payer : " + QString::fromStdString(std::to_string(this->vehicule->getPrix() + this->chauffeur->getPrix())) + "€");
 
 }
 
 void Fenetre::sansChauffeurSlot(){
-    prix_texte->setText("Prix à payer : " + QString::fromStdString(std::to_string(this->vehicule->getPrix())));
+    saisie->setEnabled(false);
+    prix_texte->setText("Prix à payer : " + QString::fromStdString(std::to_string(this->vehicule->getPrix())) + "€");
 }
 
 
 void Fenetre::voitureSlot(){
     vehicule = new Voiture();
-    prix_texte->setText("Prix à payer : " + QString::fromStdString(std::to_string(this->vehicule->getPrix())));
+    prix_texte->setText("Prix à payer : " + QString::fromStdString(std::to_string(this->vehicule->getPrix())) + "€");
+    groupChauffeur->setEnabled(true);
+    groupElectrique->setEnabled(false);
 }
 
 void Fenetre::busSlot(){
     vehicule = new Bus();
-    prix_texte->setText("Prix à payer : " + QString::fromStdString(std::to_string(this->vehicule->getPrix())));
+    prix_texte->setText("Prix à payer : " + QString::fromStdString(std::to_string(this->vehicule->getPrix())) + "€");
+    groupChauffeur->setEnabled(true);
+    groupElectrique->setEnabled(false);
 }
 
 void Fenetre::veloSlot(){
     vehicule = new Velo();
-    prix_texte->setText("Prix à payer : " + QString::fromStdString(std::to_string(this->vehicule->getPrix())));
+    chauffeur = NULL;
+    prix_texte->setText("Prix à payer : " + QString::fromStdString(std::to_string(this->vehicule->getPrix())) + "€");
+    groupChauffeur->setEnabled(false);
+    groupElectrique->setEnabled(true);
 }
 
 void Fenetre::validerSlot(){
@@ -132,14 +175,14 @@ void Fenetre::validerSlot(){
     int reponse = QMessageBox::question(this, "Valider location", "Voulez-vous valider la location ?",
                           QMessageBox::Yes | QMessageBox::No);
     if (reponse == QMessageBox::Yes){
-        if(bouton_sans_chauffeur->isChecked()){
+        if(bouton_sans_chauffeur->isChecked() || bouton_velo->isChecked()){
             location = new Location(vehicule);
             this->location->setPrix(this->vehicule->getPrix());
-            std::cout << location->afficheSansChauffeur() << std::endl;
+            QMessageBox::information(this, "Validation OK", QString::fromStdString(location->afficheSansChauffeur()));
         }else{
             location = new Location(vehicule, chauffeur);
             this->location->setPrix(this->vehicule->getPrix() + this->chauffeur->getPrix());
-            std::cout << location->afficheAvecChauffeur() << std::endl;
+            QMessageBox::information(this, "Validation OK", QString::fromStdString(location->afficheAvecChauffeur()));
         }
     }
 }

@@ -10,6 +10,7 @@ class Voiture: public Vehicule
     public:
         Voiture() : Vehicule() {}
         ~Voiture() {}
+        void setElectrique(bool e){}
         std::string getNom() const { return "Voiture";}
         float getPrix() const { return Vehicule::prix + 20;}
 

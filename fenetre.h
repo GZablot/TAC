@@ -40,6 +40,8 @@ class Fenetre : public QWidget
         void validerSlot();
         void chauffeurSlot();
         void sansChauffeurSlot();
+        void electriqueSlot();
+        void sansElectriqueSlot();
 
     private:
         QRadioButton *bouton_voiture;
@@ -47,8 +49,11 @@ class Fenetre : public QWidget
         QRadioButton *bouton_velo;
         QRadioButton *bouton_chauffeur;
         QRadioButton *bouton_sans_chauffeur;
+        QRadioButton *bouton_electrique;
+        QRadioButton *bouton_sans_electrique;
         QGroupBox *groupVehicule;
         QGroupBox *groupChauffeur;
+        QGroupBox *groupElectrique;
         QLineEdit *saisie;
         QPushButton *valider;
         QLabel *prix_texte;

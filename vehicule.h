@@ -10,6 +10,8 @@ class Vehicule {
         virtual ~Vehicule(){}
         virtual float getPrix() const = 0;
         virtual std::string getNom() const = 0;
+        virtual void setElectrique(bool e) = 0;
+
 
 
     protected:
