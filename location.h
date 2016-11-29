@@ -22,7 +22,7 @@ class Location {
         Location(){}
         Location(Vehicule* v): vehicule(v){}
         Location(Vehicule* v, Chauffeur* c) : vehicule(v), chauffeur(c){}
-        ~Location(){}
+        ~Location(){delete chauffeur; delete vehicule;}
 
         std::string getNom() const{
             return chauffeur->getNom();
@@ -30,6 +30,10 @@ class Location {
 
         int getPrix() const{
             return vehicule->getPrix() + chauffeur->getPrix();
+        }
+
+        void setElectrique(bool e){
+            vehicule->setElectrique(e);
         }
 
         void setVehicule(Vehicule* v){
@@ -50,15 +54,14 @@ class Location {
             return os.str();
         }
 
-        std::string afficheSansChauffeur() const {
-            return "Type vehicule loue : " + vehicule->getNom() + " , Prix : " + toString(vehicule->getPrix())  ;
+        std::string decrit() const {
+            if(this->chauffeur == NULL){
+                return "Type vehicule loue : " + vehicule->getNom() + " , Prix : " + toString(vehicule->getPrix())  ;
+            }else{
+                return "Type vehicule loue : " + vehicule->getNom() + " , Prix : " + toString(vehicule->getPrix() + chauffeur->getPrix())
+                        + " , Chauffeur : " + chauffeur->getNom() ;
+            }
         }
-
-        std::string afficheAvecChauffeur() const {
-            return "Type vehicule loue : " + vehicule->getNom() + " , Prix : " + toString(vehicule->getPrix() + chauffeur->getPrix())
-                    + " , Chauffeur : " + chauffeur->getNom() ;
-        }
-
 };
 
 #endif // LOCATION_H

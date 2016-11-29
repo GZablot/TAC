@@ -26,9 +26,7 @@ class Fenetre : public QWidget
     public:
         Fenetre();
         ~Fenetre(){
-            delete vehicule;
             delete location;
-            delete chauffeur;
         }
 
     public slots:
@@ -57,8 +55,6 @@ class Fenetre : public QWidget
         QPushButton *valider;
         QLabel *prix_texte;
         Location* location;
-        Vehicule* vehicule;
-        Chauffeur* chauffeur;
 };
 
 #endif // FENETRE_H
