@@ -17,7 +17,8 @@
 #include "velo.h"
 #include <QGroupBox>
 #include <QMessageBox>
-
+#include <QLineEdit>
+#include <QStringList>
 
 class Fenetre : public QWidget
 {
@@ -48,6 +49,7 @@ class Fenetre : public QWidget
         QRadioButton *bouton_sans_chauffeur;
         QGroupBox *groupVehicule;
         QGroupBox *groupChauffeur;
+        QLineEdit *saisie;
         QPushButton *valider;
         QLabel *prix_texte;
         Location* location;

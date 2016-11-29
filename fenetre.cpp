@@ -70,6 +70,16 @@ Fenetre::Fenetre() : QWidget()
     palette->setColor(QPalette::WindowText,Qt::blue);
     prix_texte->setPalette(*palette);
 
+    /*creation liste chauffeur*/
+    saisie = new QLineEdit(groupChauffeur);
+    saisie->setText("Saisir nom chauffeur");
+    saisie->move(60,60);
+
+    QStringList List;
+    List << "Clair de Lune" << "Reverie" << "Prelude";
+
+
+
     /*Par défaut voiture*/
     vehicule = new Voiture();
     prix_texte->setText("Prix à payer : " + QString::fromStdString(std::to_string(this->vehicule->getPrix())));
@@ -91,7 +101,7 @@ Fenetre::Fenetre() : QWidget()
 }
 
 void Fenetre::chauffeurSlot(){
-    chauffeur = new Chauffeur("Jean");
+    chauffeur = new Chauffeur(saisie->text().toStdString());
     prix_texte->setText("Prix à payer : " + QString::fromStdString(std::to_string(this->vehicule->getPrix() + this->chauffeur->getPrix())));
 
 }
