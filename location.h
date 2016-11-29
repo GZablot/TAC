@@ -44,10 +44,20 @@ class Location {
             this->prix = prix;
         }
 
-        std::string afficheSansChauffeur() const {return "Type vehicule loue : " + vehicule->getNom() + " , Prix : " + std::to_string(vehicule->getPrix())  ;}
+        std::string toString(float i) const {
+            std::ostringstream os;
+            os << i;
+            return os.str();
+        }
 
-        std::string afficheAvecChauffeur() const {return "Type vehicule loue : " + vehicule->getNom() + " , Prix : " + std::to_string(vehicule->getPrix() + chauffeur->getPrix())
-                    + " , Chauffeur : " + chauffeur->getNom() ;}
+        std::string afficheSansChauffeur() const {
+            return "Type vehicule loue : " + vehicule->getNom() + " , Prix : " + toString(vehicule->getPrix())  ;
+        }
+
+        std::string afficheAvecChauffeur() const {
+            return "Type vehicule loue : " + vehicule->getNom() + " , Prix : " + toString(vehicule->getPrix() + chauffeur->getPrix())
+                    + " , Chauffeur : " + chauffeur->getNom() ;
+        }
 
 };
 
