@@ -19,8 +19,7 @@ SOURCES += main.cpp\
     chauffeur.cpp \
     voiture.cpp \
     velo.cpp \
-    bus.cpp \
-    fenetre.cpp
+    bus.cpp
 
 HEADERS  += mainwindow.h \
     vehicule.h \
@@ -28,7 +27,6 @@ HEADERS  += mainwindow.h \
     chauffeur.h \
     voiture.h \
     velo.h \
-    bus.h \
-    fenetre.h
+    bus.h
 
 FORMS    += mainwindow.ui

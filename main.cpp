@@ -6,7 +6,6 @@
 #include "voiture.h"
 #include "location.h"
 #include <iostream>
-#include "fenetre.h"
 #include <QTranslator>
 #include <QLocale>
 #include <QLibraryInfo>
@@ -22,8 +21,8 @@ int main(int argc, char *argv[])
     translator.load(QString("qt_") + locale, QLibraryInfo::location(QLibraryInfo::TranslationsPath));
     a.installTranslator(&translator);
 
-    Fenetre fenetre;
-    fenetre.show();
+    //Fenetre fenetre;
+    //fenetre.show();
 
     MainWindow mainwindow;
     mainwindow.show();
