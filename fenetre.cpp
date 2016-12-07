@@ -101,6 +101,7 @@ Fenetre::Fenetre() : QWidget()
     saisie->move(60,60);
     saisie->setEnabled(false);
 
+    listeVehicules.append("Peugeot");
 
 
     /*Par défaut voiture*/

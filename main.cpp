@@ -25,6 +25,9 @@ int main(int argc, char *argv[])
     Fenetre fenetre;
     fenetre.show();
 
+    MainWindow mainwindow;
+    mainwindow.show();
+
 
 
 

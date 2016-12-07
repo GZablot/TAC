@@ -19,6 +19,7 @@
 #include <QMessageBox>
 #include <QLineEdit>
 #include <QStringList>
+#include <QList>
 
 class Fenetre : public QWidget
 {
@@ -55,6 +56,7 @@ class Fenetre : public QWidget
         QGroupBox *groupChauffeur;
         QGroupBox *groupElectrique;
         QLineEdit *saisie;
+        QList<QString> listeVehicules;
         QPushButton *valider;
         QLabel *prix_texte;
         Location* location;
