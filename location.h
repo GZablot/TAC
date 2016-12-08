@@ -2,6 +2,11 @@
 #define LOCATION_H
 
 #include <string>
+#include <QDate>
+#include <QString>
+#include <iostream>
+#include <fstream>
+#include <ostream>
 #include "chauffeur.h"
 #include "vehicule.h"
 
@@ -12,8 +17,9 @@ class Location {
         int identification;
         int duree;
         int prix;
+        QDate *dateDebut = NULL;
         Vehicule* vehicule;
-        Chauffeur* chauffeur;
+        Chauffeur* chauffeur = NULL;
         std::string rdv_aller;
         std::string rdv_retour;
         std::string type_vehicule;
@@ -22,7 +28,7 @@ class Location {
         Location(){}
         Location(Vehicule* v): vehicule(v){}
         Location(Vehicule* v, Chauffeur* c) : vehicule(v), chauffeur(c){}
-        ~Location(){}
+        ~Location(){delete chauffeur; delete vehicule;}
 
         std::string getNom() const{
             return chauffeur->getNom();
@@ -36,6 +42,10 @@ class Location {
             this->vehicule = v;
         }
 
+        Vehicule* getVehicule(){
+            return this->vehicule;
+        }
+
         void setChauffeur(Chauffeur* c){
             this->chauffeur = c;
         }
@@ -44,10 +54,51 @@ class Location {
             this->prix = prix;
         }
 
-        std::string afficheSansChauffeur() const {return "Type vehicule loué : " + vehicule->getNom() + " , Prix : " + std::to_string(vehicule->getPrix()) + "€"  ;}
+        //std::string afficheSansChauffeur() const {return "Type vehicule loué : " + vehicule->getNom() + " , Prix : " + std::to_string(vehicule->getPrix()) + "€"  ;}
 
-        std::string afficheAvecChauffeur() const {return "Type vehicule loué : " + vehicule->getNom() + " , Prix : " + std::to_string(vehicule->getPrix() + chauffeur->getPrix())  + "€"
-                    + " , Chauffeur : " + chauffeur->getNom() ;}
+        /*std::string affiche() const {
+            if(this->chauffeur == NULL)
+                return this->vehicule->affiche()  ;
+            else
+                return this->vehicule->affiche() + " , Chauffeur : " + chauffeur->getNom() ;
+        }*/
+
+        void setElectrique(bool e){
+            vehicule->setElectrique(e);
+        }
+
+        void setDateDebut(int j, int m, int a){
+            dateDebut = new QDate(a, m, j);
+        }
+
+        void save(){
+            std::ofstream file;
+            file.open("fichier_location.txt", std::ofstream::out |std::ofstream::app);
+            file << decrit() << "\n";
+            file.close();
+        }
+
+        std::string decrit() const {
+            if(this->chauffeur == NULL){
+                if(this->dateDebut == NULL){
+                    return "Type vehicule loue : " + vehicule->getNom() + " , Prix : " + std::to_string(vehicule->getPrix()) + "euros";
+                }else{
+                    return "Type vehicule loue : " + vehicule->getNom() + " , Prix : " + std::to_string(vehicule->getPrix()) + "euros, pour la date du : "
+                            + dateDebut->toString().toStdString();
+                }
+            }else{
+                if(this->dateDebut == NULL){
+                    return "Type vehicule loue : " + vehicule->getNom() + " , Prix : " + std::to_string(vehicule->getPrix() + chauffeur->getPrix())
+                            + "euros" + " , Chauffeur : " + chauffeur->getNom();
+                }else{
+                    return "Type vehicule loue : " + vehicule->getNom() + " , Prix : " + std::to_string(vehicule->getPrix() + chauffeur->getPrix())
+                            + "euros" + " , Chauffeur : " + chauffeur->getNom() + ", pour la date du : " + dateDebut->toString().toStdString();
+                }
+            }
+        }
+
+        //std::string afficheAvecChauffeur() const {return "Type vehicule loué : " + vehicule->getNom() + " , Prix : " + std::to_string(vehicule->getPrix() + chauffeur->getPrix())  + "€"
+                   // + " , Chauffeur : " + chauffeur->getNom() ;}
 
 };
 

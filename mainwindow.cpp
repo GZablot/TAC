@@ -78,7 +78,21 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->bouton_sans_electrique->setFont(QFont("Comic Sans MS"));
     ui->bouton_sans_electrique->setCursor(Qt::PointingHandCursor);
 
+    /*jour de début de la location*/
+    ui->jourDebut->setMinimum(1);
+    ui->jourDebut->setMaximum(31);
+    ui->jourDebut->setPrefix("Jour : ");
 
+
+    /*moi de début de la location*/
+    ui->moisDebut->setMinimum(1);
+    ui->moisDebut->setMaximum(12);
+    ui->moisDebut->setPrefix("Mois : ");
+
+    /*année de début de la location*/
+    ui->anneeDebut->setMinimum(2016);
+    ui->anneeDebut->setMaximum(2020);
+    ui->anneeDebut->setPrefix("Annee : ");
 
     /*bouton valider location*/
     ui->valider->setToolTip("Louer une voiture");
@@ -103,8 +117,9 @@ MainWindow::MainWindow(QWidget *parent) :
 
 
     /*Par défaut voiture*/
-    vehicule = new Voiture();
-    ui->prix_texte->setText("Prix à payer : " + QString::fromStdString(std::to_string(this->vehicule->getPrix())) + "€");
+    location = new Location();
+    location->setVehicule(new Voiture());
+    ui->prix_texte->setText(QString::fromStdString(location->decrit()) + "                                                                          ");
 
 
 }
@@ -112,9 +127,7 @@ MainWindow::MainWindow(QWidget *parent) :
 MainWindow::~MainWindow()
 {
     delete ui;
-    delete vehicule;
     delete location;
-    delete chauffeur;
 }
 
 void MainWindow::on_pushButton_clicked()
@@ -165,54 +178,57 @@ void MainWindow::on_pushButton_3_clicked()
 
 void MainWindow::on_bouton_electrique_clicked()
 {
-    vehicule->setElectrique(true);
-    ui->prix_texte->setText("Prix à payer : " + QString::fromStdString(std::to_string(this->vehicule->getPrix())) + "€");
+    location->setElectrique(true);
+    ui->prix_texte->setText(QString::fromStdString(location->decrit()) + "                                                                          ");
 }
 
 void MainWindow::on_bouton_sans_electrique_clicked()
 {
-    vehicule->setElectrique(false);
-    ui->prix_texte->setText("Prix à payer : " + QString::fromStdString(std::to_string(this->vehicule->getPrix())) + "€");
+    location->setElectrique(false);
+    ui->prix_texte->setText(QString::fromStdString(location->decrit()) + "                                                                          ");
 }
 
 void MainWindow::on_bouton_chauffeur_clicked()
 {
+    location->setChauffeur(new Chauffeur("Jean"));
     if(ui->saisie->text().toStdString() == "Saisir nom chauffeur"){
-        chauffeur = new Chauffeur("Jean");
+        location->setChauffeur(new Chauffeur("Jean"));
     }else{
-        chauffeur = new Chauffeur(ui->saisie->text().toStdString());
+        location->setChauffeur(new Chauffeur(ui->saisie->text().toStdString()));
     }
     ui->saisie->setEnabled(true);
-    ui->prix_texte->setText("Prix à payer : " + QString::fromStdString(std::to_string(this->vehicule->getPrix() + this->chauffeur->getPrix())) + "€");
+    ui->prix_texte->setText(QString::fromStdString(location->decrit()) + "                                                                          ");
 }
 
 void MainWindow::on_bouton_sans_chauffeur_clicked()
 {
+    location->setChauffeur(NULL);
     ui->saisie->setEnabled(false);
-    ui->prix_texte->setText("Prix à payer : " + QString::fromStdString(std::to_string(this->vehicule->getPrix())) + "€");
+    ui->prix_texte->setText(QString::fromStdString(location->decrit()) + "                                                                          ");
 }
 
 void MainWindow::on_bouton_bus_clicked()
 {
-    vehicule = new Bus();
-    ui->prix_texte->setText("Prix à payer : " + QString::fromStdString(std::to_string(this->vehicule->getPrix())) + "€");
+    location->setVehicule(new Bus());
+    ui->prix_texte->setText(QString::fromStdString(location->decrit()) + "                                                                          ");
     ui->groupChauffeur->setEnabled(true);
     ui->groupElectrique->setEnabled(false);
 }
 
 void MainWindow::on_bouton_voiture_clicked()
 {
-    vehicule = new Voiture();
-    ui->prix_texte->setText("Prix à payer : " + QString::fromStdString(std::to_string(this->vehicule->getPrix())) + "€");
+    location->setVehicule(new Voiture());
+    location->getVehicule()->setModele(ui->comboBox->currentText().toStdString() + "                                                                          ");
+    ui->prix_texte->setText(QString::fromStdString(location->decrit()));
     ui->groupChauffeur->setEnabled(true);
     ui->groupElectrique->setEnabled(false);
 }
 
 void MainWindow::on_bouton_velo_clicked()
 {
-    vehicule = new Velo();
-    chauffeur = NULL;
-    ui->prix_texte->setText("Prix à payer : " + QString::fromStdString(std::to_string(this->vehicule->getPrix())) + "€");
+    location->setVehicule(new Velo());
+    location->setChauffeur(NULL);
+    ui->prix_texte->setText(QString::fromStdString(location->decrit()) + "                                                                          ");
     ui->groupChauffeur->setEnabled(false);
     ui->groupElectrique->setEnabled(true);
 }
@@ -226,20 +242,18 @@ void MainWindow::on_valider_clicked()
                           QMessageBox::Yes | QMessageBox::No);
     if (reponse == QMessageBox::Yes){
         if(ui->bouton_sans_chauffeur->isChecked() || ui->bouton_velo->isChecked()){
-            location = new Location(vehicule);
-            this->location->setPrix(this->vehicule->getPrix());
-            QMessageBox::information(this, "Validation OK", QString::fromStdString(location->afficheSansChauffeur()));
+            location->setDateDebut(ui->jourDebut->value(), ui->moisDebut->value(), ui->anneeDebut->value());
+            location->save();
+            //location = new Location(vehicule);
+            //this->location->setPrix(this->vehicule->getPrix());
+            QMessageBox::information(this, "Validation OK", QString::fromStdString(location->decrit()));
         }else{
-            location = new Location(vehicule, chauffeur);
-            this->location->setPrix(this->vehicule->getPrix() + this->chauffeur->getPrix());
-            QMessageBox::information(this, "Validation OK", QString::fromStdString(location->afficheAvecChauffeur()));
+            location->setDateDebut(ui->jourDebut->value(), ui->moisDebut->value(), ui->anneeDebut->value());
+            location->save();
+            //location = new Location(vehicule, chauffeur);
+            //this->location->setPrix(this->vehicule->getPrix() + this->chauffeur->getPrix());
+            QMessageBox::information(this, "Validation OK", QString::fromStdString(location->decrit()));
         }
     }
 }
 
-void MainWindow::on_listView_clicked(const QModelIndex &index)
-{
-    //QModelIndex i = ui->listView->currentIndex();
-    QString texte = index.data(Qt::DisplayRole).toString();
-    std::cout << texte.toStdString() << std::endl;
-}

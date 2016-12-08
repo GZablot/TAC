@@ -13,6 +13,8 @@
 #include <QHBoxLayout>
 #include <string>
 #include <iostream>
+#include <QDate>
+#include <QSpinBox>
 #include "location.h"
 #include "chauffeur.h"
 #include "vehicule.h"
@@ -59,7 +61,6 @@ private slots:
 
     void on_valider_clicked();
 
-    void on_listView_clicked(const QModelIndex &index);
 
 private:
     Ui::MainWindow *ui;
@@ -68,8 +69,8 @@ private:
     QList<QString> listeVehicules;
 
     Location* location;
-    Vehicule* vehicule;
-    Chauffeur* chauffeur;
+    //Vehicule* vehicule;
+    //Chauffeur* chauffeur;
 };
 
 #endif // MAINWINDOW_H
