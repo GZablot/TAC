@@ -54,14 +54,6 @@ class Location {
             this->prix = prix;
         }
 
-        //std::string afficheSansChauffeur() const {return "Type vehicule loué : " + vehicule->getNom() + " , Prix : " + std::to_string(vehicule->getPrix()) + "€"  ;}
-
-        /*std::string affiche() const {
-            if(this->chauffeur == NULL)
-                return this->vehicule->affiche()  ;
-            else
-                return this->vehicule->affiche() + " , Chauffeur : " + chauffeur->getNom() ;
-        }*/
 
         void setElectrique(bool e){
             vehicule->setElectrique(e);
@@ -96,9 +88,6 @@ class Location {
                 }
             }
         }
-
-        //std::string afficheAvecChauffeur() const {return "Type vehicule loué : " + vehicule->getNom() + " , Prix : " + std::to_string(vehicule->getPrix() + chauffeur->getPrix())  + "€"
-                   // + " , Chauffeur : " + chauffeur->getNom() ;}
 
 };
 
