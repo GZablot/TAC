@@ -14,6 +14,8 @@ class Velo : public Vehicule
 
             void setElectrique(bool e){this->electrique = e;}
 
+            std::string getModele() const {return "VTT";}
+
             std::string getNom() const { return "Velo";}
 
             float getPrix() const {

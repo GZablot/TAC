@@ -13,6 +13,8 @@ class Bus : public Vehicule
 
         void setElectrique(bool e){}
 
+        std::string getModele() const {return "Autobus Renault";}
+
         std::string getNom() const { return "Bus";}
 
         float getPrix() const { return Vehicule::prix + 50;}

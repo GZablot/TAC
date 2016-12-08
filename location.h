@@ -73,18 +73,18 @@ class Location {
         std::string decrit() const {
             if(this->chauffeur == NULL){
                 if(this->dateDebut == NULL){
-                    return "Type vehicule loue : " + vehicule->getNom() + " , Prix : " + std::to_string(vehicule->getPrix()) + "euros";
+                    return "Type vehicule loué : " + vehicule->getNom() + " , Prix : " + std::to_string(vehicule->getPrix()) + " € , Modèle : " + vehicule->getModele();
                 }else{
-                    return "Type vehicule loue : " + vehicule->getNom() + " , Prix : " + std::to_string(vehicule->getPrix()) + "euros, pour la date du : "
-                            + dateDebut->toString().toStdString();
+                    return "Type vehicule loué : " + vehicule->getNom() + " , Prix : " + std::to_string(vehicule->getPrix()) + " €  , Modèle : "
+                            + vehicule->getModele() + ", pour la date du : " + dateDebut->toString().toStdString();
                 }
             }else{
                 if(this->dateDebut == NULL){
-                    return "Type vehicule loue : " + vehicule->getNom() + " , Prix : " + std::to_string(vehicule->getPrix() + chauffeur->getPrix())
-                            + "euros" + " , Chauffeur : " + chauffeur->getNom();
+                    return "Type vehicule loué : " + vehicule->getNom() + " , Prix : " + std::to_string(vehicule->getPrix() + chauffeur->getPrix())
+                            + " € , Modèle : " + vehicule->getModele() + " , Chauffeur : " + chauffeur->getNom();
                 }else{
-                    return "Type vehicule loue : " + vehicule->getNom() + " , Prix : " + std::to_string(vehicule->getPrix() + chauffeur->getPrix())
-                            + "euros" + " , Chauffeur : " + chauffeur->getNom() + ", pour la date du : " + dateDebut->toString().toStdString();
+                    return "Type vehicule loué : " + vehicule->getNom() + " , Prix : " + std::to_string(vehicule->getPrix() + chauffeur->getPrix())
+                            + " €, Modèle : " + vehicule->getModele() + " , Chauffeur : " + chauffeur->getNom() + " , pour la date du : " + dateDebut->toString().toStdString();
                 }
             }
         }

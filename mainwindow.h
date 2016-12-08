@@ -62,6 +62,8 @@ private slots:
     void on_valider_clicked();
 
 
+    void on_comboBox_activated(const QString &arg1);
+
 private:
     Ui::MainWindow *ui;
     QStringListModel *model;

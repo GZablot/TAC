@@ -7,28 +7,25 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    // Create model
+
     model = new QStringListModel(this);
 
-    // Make data
-    QStringList List;
-    List << "Peugeot 3008" << "Renault Clio" << "Renault Espace" << "Renault Megane" << "Peugeot 308" ;
 
-    // Populate our model
+    QStringList List;
+    List << "Peugeot 3008" << "Renault Clio" << "Opel Astra" << "Renault Espace" << "Volkswagen Golf" << "Renault Megane" << "Peugeot 308" << "BMW Serie 1" << "Opel Agila" ;
+
+
     model->setStringList(List);
 
-    // Glue model and view together
+
     ui->listView->setModel(model);
     ui->comboBox->setModel(model);
 
-    // Add additional feature so that
-    // we can manually modify the data in ListView
-    // It may be triggered by hitting any key or double-click etc.
+
     ui->listView->
             setEditTriggers(QAbstractItemView::AnyKeyPressed |
                             QAbstractItemView::DoubleClicked);
 
-    //setFixedSize(600, 380);
 
 
 
@@ -119,7 +116,8 @@ MainWindow::MainWindow(QWidget *parent) :
     /*Par défaut voiture*/
     location = new Location();
     location->setVehicule(new Voiture());
-    ui->prix_texte->setText(QString::fromStdString(location->decrit()) + "                                                                          ");
+    location->getVehicule()->setModele(ui->comboBox->currentText().toStdString());
+    ui->prix_texte->setText(QString::fromStdString(location->decrit()));
 
 
 }
@@ -179,13 +177,13 @@ void MainWindow::on_pushButton_3_clicked()
 void MainWindow::on_bouton_electrique_clicked()
 {
     location->setElectrique(true);
-    ui->prix_texte->setText(QString::fromStdString(location->decrit()) + "                                                                          ");
+    ui->prix_texte->setText(QString::fromStdString(location->decrit()));
 }
 
 void MainWindow::on_bouton_sans_electrique_clicked()
 {
     location->setElectrique(false);
-    ui->prix_texte->setText(QString::fromStdString(location->decrit()) + "                                                                          ");
+    ui->prix_texte->setText(QString::fromStdString(location->decrit()));
 }
 
 void MainWindow::on_bouton_chauffeur_clicked()
@@ -197,20 +195,20 @@ void MainWindow::on_bouton_chauffeur_clicked()
         location->setChauffeur(new Chauffeur(ui->saisie->text().toStdString()));
     }
     ui->saisie->setEnabled(true);
-    ui->prix_texte->setText(QString::fromStdString(location->decrit()) + "                                                                          ");
+    ui->prix_texte->setText(QString::fromStdString(location->decrit()));
 }
 
 void MainWindow::on_bouton_sans_chauffeur_clicked()
 {
     location->setChauffeur(NULL);
     ui->saisie->setEnabled(false);
-    ui->prix_texte->setText(QString::fromStdString(location->decrit()) + "                                                                          ");
+    ui->prix_texte->setText(QString::fromStdString(location->decrit()));
 }
 
 void MainWindow::on_bouton_bus_clicked()
 {
     location->setVehicule(new Bus());
-    ui->prix_texte->setText(QString::fromStdString(location->decrit()) + "                                                                          ");
+    ui->prix_texte->setText(QString::fromStdString(location->decrit()));
     ui->groupChauffeur->setEnabled(true);
     ui->groupElectrique->setEnabled(false);
 }
@@ -218,7 +216,7 @@ void MainWindow::on_bouton_bus_clicked()
 void MainWindow::on_bouton_voiture_clicked()
 {
     location->setVehicule(new Voiture());
-    location->getVehicule()->setModele(ui->comboBox->currentText().toStdString() + "                                                                          ");
+    location->getVehicule()->setModele(ui->comboBox->currentText().toStdString());
     ui->prix_texte->setText(QString::fromStdString(location->decrit()));
     ui->groupChauffeur->setEnabled(true);
     ui->groupElectrique->setEnabled(false);
@@ -228,7 +226,7 @@ void MainWindow::on_bouton_velo_clicked()
 {
     location->setVehicule(new Velo());
     location->setChauffeur(NULL);
-    ui->prix_texte->setText(QString::fromStdString(location->decrit()) + "                                                                          ");
+    ui->prix_texte->setText(QString::fromStdString(location->decrit()));
     ui->groupChauffeur->setEnabled(false);
     ui->groupElectrique->setEnabled(true);
 }
@@ -236,24 +234,26 @@ void MainWindow::on_bouton_velo_clicked()
 
 void MainWindow::on_valider_clicked()
 {
-    std::cout << "Validation" << std::endl;
-    //TODO verifier si un bouton entre velo,bus est check
     int reponse = QMessageBox::question(this, "Valider location", "Voulez-vous valider la location ?",
                           QMessageBox::Yes | QMessageBox::No);
     if (reponse == QMessageBox::Yes){
         if(ui->bouton_sans_chauffeur->isChecked() || ui->bouton_velo->isChecked()){
             location->setDateDebut(ui->jourDebut->value(), ui->moisDebut->value(), ui->anneeDebut->value());
             location->save();
-            //location = new Location(vehicule);
-            //this->location->setPrix(this->vehicule->getPrix());
             QMessageBox::information(this, "Validation OK", QString::fromStdString(location->decrit()));
         }else{
             location->setDateDebut(ui->jourDebut->value(), ui->moisDebut->value(), ui->anneeDebut->value());
             location->save();
-            //location = new Location(vehicule, chauffeur);
-            //this->location->setPrix(this->vehicule->getPrix() + this->chauffeur->getPrix());
             QMessageBox::information(this, "Validation OK", QString::fromStdString(location->decrit()));
         }
     }
 }
 
+
+
+
+void MainWindow::on_comboBox_activated(const QString &arg1)
+{
+    location->getVehicule()->setModele(arg1.toStdString());
+    ui->prix_texte->setText(QString::fromStdString(location->decrit()));
+}
