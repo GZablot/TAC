@@ -21,6 +21,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->listView->setModel(model);
     ui->comboBox->setModel(model);
 
+    setWindowTitle("TAC");
 
     ui->listView->
             setEditTriggers(QAbstractItemView::AnyKeyPressed |
@@ -211,6 +212,7 @@ void MainWindow::on_bouton_bus_clicked()
     ui->prix_texte->setText(QString::fromStdString(location->decrit()));
     ui->groupChauffeur->setEnabled(true);
     ui->groupElectrique->setEnabled(false);
+    ui->comboBox->setEnabled(false);
 }
 
 void MainWindow::on_bouton_voiture_clicked()
@@ -220,6 +222,7 @@ void MainWindow::on_bouton_voiture_clicked()
     ui->prix_texte->setText(QString::fromStdString(location->decrit()));
     ui->groupChauffeur->setEnabled(true);
     ui->groupElectrique->setEnabled(false);
+    ui->comboBox->setEnabled(true);
 }
 
 void MainWindow::on_bouton_velo_clicked()
@@ -229,6 +232,7 @@ void MainWindow::on_bouton_velo_clicked()
     ui->prix_texte->setText(QString::fromStdString(location->decrit()));
     ui->groupChauffeur->setEnabled(false);
     ui->groupElectrique->setEnabled(true);
+    ui->comboBox->setEnabled(false);
 }
 
 
